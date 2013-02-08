@@ -17,12 +17,19 @@
 		var h = d.getHours();
 		var min = d.getMinutes();
 		var inside;
-		if(min >= 10){
-			inside = day + "/" + mon + "/" + y + " " + h + ":" + min + " - " + x.value;	
+		if(mon < 10){
+			mon = "0" + mon;
+		}
+		if(day < 10){
+			day = "0" + day;
+		}
+		if(h < 10){
+			h = "0" + h;
 		}
 		if(min < 10){
-			inside = day + "/" + mon + "/" + y + " " + h + ":0" + min + " - " + x.value;
+			min = "0" + min;
 		}
+		inside = mon + "/" + day + "/" + y + " " + h + ":" + min + " - " + x.value;	
 		var status = document.createTextNode(inside);
 		newItem.appendChild(status);
 		var list = document.getElementById("status");
