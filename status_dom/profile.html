@@ -8,15 +8,14 @@
 <script>
 	function addstatus()
 	{
-		var x = document.getElementById("msg");
-		var newItem = document.createElement("p");
-		var d = new Date();
-		var day = d.getDate();
-		var mon = d.getMonth();
-		var y = d.getFullYear();
-		var h = d.getHours();
-		var min = d.getMinutes();
-		var inside;
+		x = document.getElementById("msg");
+		newItem = document.createElement("p");
+		d = new Date();
+		day = d.getDate();
+		mon = d.getMonth();
+		y = d.getFullYear();
+		h = d.getHours();
+		min = d.getMinutes();
 		if(mon < 10){
 			mon = "0" + mon;
 		}
@@ -30,9 +29,8 @@
 			min = "0" + min;
 		}
 		inside = mon + "/" + day + "/" + y + " " + h + ":" + min + " - " + x.value;	
-		var status = document.createTextNode(inside);
-		newItem.appendChild(status);
-		var list = document.getElementById("status");
+		newItem.appendChild(document.createTextNode(inside));
+		list = document.getElementById("status");
 		list.insertBefore(newItem, list.childNodes[0])
 	}
 </script>
