@@ -3,6 +3,7 @@
 <html>
 
 <head>
+<link rel="stylesheet" href="jobs.css">
 <title>Friends of Ming Chow Jobs Listing</title>
 <script type="text/javascript">
 	function parse() {
@@ -11,6 +12,8 @@ jobs = JSON.parse(str);
 	for(i = 0; i < 9; i++){
 		x = document.getElementById("list");
 		job = document.createElement('table');
+		job.border = "1";
+		job.id = "tab";
 		row0 = job.insertRow(0);
 		cell1 = row0.insertCell(0);
 		cell1.innerHTML = "Company: " + jobs[i]['company'];
@@ -21,6 +24,8 @@ jobs = JSON.parse(str);
 		cell3 = row2.insertCell(0);
 		cell3.innerHTML = "Position: " + jobs[i]['position'];
 		document.getElementById('list').appendChild(job);
+		y = document.createElement('br');
+		document.getElementById('list').appendChild(y);
 
 	}		
 }
