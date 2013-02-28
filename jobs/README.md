@@ -1,12 +1,7 @@
 jobs
 =======
 
-There were many ways to approach this problem. It would have been easy to simply add each element of interest as it's own paragraph but that would have been boring...
+Lab 8 was basically just taking the original jobs lab and getting the long string from another website instead of having it already.
+Once the string was retreived, it was handled the exact same to display the information on the page.
 
-What I ended up doing was to make a table for each job, with each element of interest (Company, Location, Position) as it's own row.
-
-One issue that I feel like I faked was adding a br element after each table. There must be a real way of getting this effect, but this is what I did for now.
-
-I'm pleased with my final product and styled it with a Matrix theme, since I watched the matrix the other day and feel like I'm on Neo's ship sometimes when I code.
-
--SB
+Using Ajax, this was easy, and the only issue was the security issue which we didn't have to handle.
