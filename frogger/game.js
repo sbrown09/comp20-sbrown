@@ -11,6 +11,8 @@ var	starty = 455;
 	//These will be the variables that change as the frog is moved
 var	xfrog = startx;
 var	yfrog = starty;
+var xd;
+var yd;
 	
 	//How much to offset objects
 var	offsetlives = 25;
@@ -43,7 +45,7 @@ var base = [];
 for(i=0;i<5;i++){
 	base[i] = false;
 }
-
+var alive = true;
 document.addEventListener("keydown", function(event)
 {
 	if(event.keyCode == 40){
@@ -88,11 +90,13 @@ document.addEventListener("keydown", function(event)
 				console.log(base[2]);
 			}
 			if((xfrog > -5)&&(xfrog < 25)&&(base[0]==true)){
-				die();
+				xd = xfrog;
+				yd = yfrog;
 				lives--;
 				xfrog = startx;
 				yfrog = starty;
 				ymax = starty;
+				die();
 			}
 			}
 			if(yfrog < 90){
@@ -104,11 +108,13 @@ document.addEventListener("keydown", function(event)
 				ymax = starty;
 			}
 			if((xfrog < 99.5)&&(xfrog > 79.5)&&(base[1]==true)){
-				die();
+				xd = xfrog;
+				yd = yfrog;
 				lives--;
 				xfrog = startx;
 				yfrog = starty;
 				ymax = starty;
+				die();
 			}
 			}
 			if(yfrog < 90){
@@ -120,11 +126,13 @@ document.addEventListener("keydown", function(event)
 				ymax = starty;
 			}
 			if((xfrog < 183.5)&&(xfrog > 163.5)&&(base[2]==true)){
-				die();
+				xd = xfrog;
+				yd = yfrog;
 				lives--;
 				xfrog = startx;
 				yfrog = starty;
 				ymax = starty;
+				die();
 			}
 			}
 			if(yfrog < 90){
@@ -136,11 +144,13 @@ document.addEventListener("keydown", function(event)
 				ymax = starty;
 			}
 			if((xfrog < 267.5)&&(xfrog > 247.5)&&(base[3]==true)){
-				die();
+				xd = xfrog;
+				yd = yfrog;
 				lives--;
 				xfrog = startx;
 				yfrog = starty;
 				ymax = starty;
+				die();
 			}
 			}
 			if(yfrog < 90){
@@ -152,19 +162,27 @@ document.addEventListener("keydown", function(event)
 				ymax = starty;
 			}
 			if((xfrog < 351.5)&&(xfrog > 331.5)&&(base[4]==true)){
-				die();
+				xd = xfrog;
+				yd = yfrog;
 				lives--;
 				xfrog = startx;
 				yfrog = starty;
 				ymax = starty;
+				die();
+			}
+			if(win()==true){
+				level++;
+				empty();
 			}
 			}
 			if((yfrog<90)&&(((xfrog < -5)||((xfrog > 79.5)&&(xfrog > 25))||(xfrog > 351.5)||((xfrog < 331.5)&&(xfrog > 267.5))||((xfrog < 247.5)&&(xfrog > 183.5))||((xfrog < 163.5)&&(xfrog < 99.5))))){
-				die();
+				xd = xfrog;
+				yd = yfrog;
 				lives--;
 				xfrog = startx;
 				yfrog = starty;
 				ymax = starty;
+				die();
 			}
 
 }
@@ -176,6 +194,8 @@ document.addEventListener("keydown", function(event)
 
 img = new Image();
 img.src = 'assets/frogger_sprites.png';
+dead = new Image();
+dead.src = 'assets/dead_frog.png';
 function start_game() {
 	
 	//These will be the variables that change as the frog is moved
@@ -185,23 +205,24 @@ level = 1;
 
 	setInterval(function(){x_car()},50);
 	function x_car(){
-		basex['w'] += 5;
+	if(lives != 0){
+		basex['w'] += 3+2*level;
 		if(basex['w'] > 399){
 			basex['w'] = -300;
 		}
-		basex['y'] -= 8;
+		basex['y'] -= 6+2*level;
 		if(basex['y'] < -300){
 			basex['y'] = 400;
 		}
-		basex['p'] -= 9;
+		basex['p'] -= 7+2*level;
 		if(basex['p'] < -300){
 			basex['p'] = 400;
 		}
-		basex['s'] += 4;
+		basex['s'] += 2+2*level;
 		if(basex['s'] > 399){
 			basex['s'] = -300;
 		}
-		basex['t'] -= 3;
+		basex['t'] -= 1+2*level;
 		if(basex['t'] < -300){
 			basex['t'] = 400;
 		}
@@ -227,25 +248,30 @@ level = 1;
 		
 		draw_stuff()
 	}
+	}
 
 	
 
-	}
+}
 function draw_stuff(){
-
 if(splat()==true){
+	xd = xfrog;
+	yd = yfrog;
 	lives--;
 	xfrog = startx;
 	yfrog = starty;
 	ymax = starty;
+	die();
 }
 if(yfrog<272){
 if(drown()==true){
-	die();
+	xd = xfrog;
+	yd = yfrog;
 	lives--;
 	xfrog = startx;
 	yfrog = starty;
 	ymax = starty;
+	die();
 }
 }
 
@@ -265,18 +291,22 @@ if(drown()==true){
 			xfrog+=5;
 		}
 		if(xfrog>370){
-				die();
+				xd = xfrog;
+				yd = yfrog;
 				lives--;
 				xfrog = startx;
 				yfrog = starty;
 				ymax = starty;
+				die();
 		}
 		if(xfrog<-15){
-			die();
+			xd = xfrog;
+			yd = yfrog;
 			lives--;
 			xfrog = startx;
 			yfrog = starty;
 			ymax = starty;
+			die();
 		}
 	canvas = document.getElementById('game');
 	ctx = canvas.getContext('2d');
@@ -348,17 +378,27 @@ if(drown()==true){
     }
     
     //Put in the frog
-    ctx.drawImage(img, 0, 362, 35, 30, xfrog, yfrog, 35, 30);
+    	ctx.drawImage(img, 0, 362, 35, 30, xfrog, yfrog, 35, 30);
+    if(alive==false){
+    	ctx.drawImage(dead,0,0,30,30,xd,yd,30,30);
+    	
+    }
     
     //Put in the Level
     ctx.fillStyle="#00FF00";
     ctx.font="23px sans-serif";
-    ctx.fillText("Level 1", 175, 530);
+    ctx.fillText("Level " + level, 175, 530);
     
     //Put in the score
     ctx.fillStyle="#00FF00";
     ctx.font="15px sans-serif";
-    ctx.fillText("Score:" + score, 3, 555);
+    if(lives != 0){
+    ctx.fillText("Score: " + score, 3, 555);
+    }
+    if(lives == 0){
+	    ctx.fillText("GAME OVER!", 3, 555)
+    }
+	    
 	
 }  
 
@@ -391,5 +431,28 @@ function splat(){
 }
 
 function die(){
-	ctx.drawImage(img, 0, 362, 35, 30, xfrog, yfrog, 35, 30);
+	alive=false;
+	setTimeout(function(){alive=true;}, 2000);
 }
+
+function win(){
+	for(i=0;i<base.length;i++){
+		if(base[i]==false){
+			return false;
+		}
+	}
+	return true;
+}
+
+function empty(){
+	for(i=0;i<base.length;i++){
+		base[i] = false;
+	}
+}
+
+function sleep(ms)
+	{
+		var dt = new Date();
+		dt.setTime(dt.getTime() + ms);
+		while (new Date().getTime() < dt.getTime());
+	}
