@@ -46,15 +46,19 @@ for(i=0;i<5;i++){
 	base[i] = false;
 }
 var alive = true;
+var jump = new Audio();
+jump.src = 'assets/jump.mp3';
 document.addEventListener("keydown", function(event)
 {
 	if(event.keyCode == 40){
+		jump.play();
 		if(yfrog < 455){
 		yfrog += 30.5;
 		}
 		console.log(yfrog);
 	}
 	if(event.keyCode == 38){
+		jump.play();
 		yfrog -= 30.5;
 			if(yfrog < ymax){
 			ymax = yfrog;
@@ -63,6 +67,7 @@ document.addEventListener("keydown", function(event)
 		console.log(yfrog);
 	}
 	if(event.keyCode == 37){
+		jump.play();
 		if(xfrog<26){
 			xfrog = -15;
 		}
@@ -72,6 +77,7 @@ document.addEventListener("keydown", function(event)
 		console.log(xfrog);
 	}
 	if(event.keyCode == 39){
+		jump.play();
 		if(xfrog>330){
 			xfrog = 366;
 		}
@@ -456,3 +462,4 @@ function sleep(ms)
 		dt.setTime(dt.getTime() + ms);
 		while (new Date().getTime() < dt.getTime());
 	}
+
