@@ -1,0 +1,25 @@
+body {
+font-family: "Times", Times, sans-serif; 
+font-size: 11pt;
+color: black;
+}
+
+h1 {
+font-size: 15pt;
+color: blue;
+border-bottom: 1px solid black;
+}
+h2 {
+font-size: 15pt; padding-bottom: 0px; margin-bottom: 0px;
+}
+ol ul { 
+font-size: .8em; 
+padding-top: 0px; padding-left: 0px; 
+margin-top: 0px; margin-left: 0px; }
+ol { font-size: 1.3em; }
+.title { border: none; font-size: 2em; font-weight: bold; }
+.center { text-align: center; }
+.italic { font-style: italic; }
+.emph { font-weight: bold; color: #0000CC; }
+.high { text-align: center; color: red; }
+.low { text-align: center; color: green; }
