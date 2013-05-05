@@ -182,9 +182,6 @@ function renderMap(){
 //				});
 //				closestLine.setMap(map);
 //			}
-Number.prototype.toRad = function() {
-   return this * Math.PI / 180;
-}
 
 var lat2 = myLat; 
 var lon2 = myLong;
@@ -354,7 +351,11 @@ function abbreviate(){
     abbreviations[39] = {"abb": "RQUAS", "full_name": "Quincy Adams Square", "lat":42.233391, "lng":-71.008153};
     abbreviations[40] = {"abb": "RBRAS", "full_name": "Braintree Square", "lat":42.2078543, "lng":-71.0011385};
 }
-
+if (typeof(Number.prototype.toRad) === "undefined") {
+  Number.prototype.toRad = function() {
+    return this * Math.PI / 180;
+  }
+}
 
 var lat2 = myLat; 
 var lon2 = myLong;
@@ -371,10 +372,4 @@ var t;
  c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
  t = R * c; 
  return t;
-}
-
-if (typeof(Number.prototype.toRad) === "undefined") {
-  Number.prototype.toRad = function() {
-    return this * Math.PI / 180;
-  }
 }
