@@ -355,29 +355,6 @@ function abbreviate(){
     abbreviations[40] = {"abb": "RBRAS", "full_name": "Braintree Square", "lat":42.2078543, "lng":-71.0011385};
 }
 
-function findpeople() {
-	reqwal.open("GET", "http://messagehub.herokuapp.com/a3.json",true);
-	reqwal.send(null);
-	reqwal.onreadystatechange = waldo;
-}
-
-function waldo(){
-	if (reqwal.readyState == 4 && reqwal.status == 200){
-        ppl = JSON.parse(reqwal.responseText);
-        if(ppl.length != 0){
-	        for(i=0;i<ppl.length;i++){
-		        if(ppl[i]['name']=="Waldo"){
-		        	dWal = distfromme(ppl[i]['loc']['latitude'],ppl[i]['loc']['longitude']);
-			        persondisp('waldo.png', "Waldo ", dWal); 
-		        }
-		        if(ppl[i]['name']=="Carmen Sandiego"){
-		        	dCar = distfromme(ppl[i]['loc']['latitude'],ppl[i]['loc']['longitude']);
-			        persondisp('carmen.png', "Carmen Sandiego ", dCar);
-			    }
-	        }
-	    }
-}
-}
 
 function distfromme(lat, lon){
 	Number.prototype.toRad = function() {
@@ -400,17 +377,3 @@ var t;
  return t;
 }
 
-
-function persondisp(icon, name, howfar){
-
-    dude = new google.maps.LatLng(lat1, lon1);
-    marker = new google.maps.Marker({
-        map: map,
-        position: dude,
-        icon: icon
-    });
-    google.maps.event.addListener(marker, 'click', function() {
-        infowindow.setContent(name + "is " + howfar + " miles away from you.");
-        infowindow.open(map, this);
-    });
-}
