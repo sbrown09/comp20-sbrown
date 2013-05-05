@@ -17,6 +17,13 @@
 	var infoWindow;
 	var abbreviations = [];
 	var infowindow = new google.maps.InfoWindow();
+
+if (typeof Number.prototype.toRad == 'undefined') {
+  Number.prototype.toRad = function() {
+    return this * Math.PI / 180;
+  }
+}	
+	
 function initialize() {
 	map = new google.maps.Map(document.getElementById("map_canvas"),mapOptions);
 	pt = new google.maps.LatLng(42.395428, -71.142483);
