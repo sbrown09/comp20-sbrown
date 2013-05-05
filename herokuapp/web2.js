@@ -7,7 +7,7 @@ app.use(express.bodyParser());
 app.set('title', 'nodeapp');
 app.set('views', __dirname + '/views');
 //app.use(express.static('../public/'));
-app.engine('.html', require('ejs').renderFile);
+//app.engine('.html', require('ejs').renderFile);
 
 
 // Mongo initialization
@@ -19,24 +19,14 @@ var db = mongo.Db.connect(mongoUri, function (error, databaseConnection) {
 db = databaseConnection;
 }); 
 
-
-var path = require('path')
-app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(express.static(__dirname + '../../public'));
 
-
-app.all('/', function(req, res, next) { 
+app.all('/', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   next();
  });
 
-app.all('/submit2.json', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  next();
- });
 
 app.get('/', function(request,response, next) {
   response.render('login.html'); 
@@ -55,11 +45,7 @@ app.get('/signup.html', function(request,response, next) {
   response.render('signup.html'); 
 });
 
-app.all('/database', function(req, res, next) { 
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  next();
- });
+
 app.get('/database', function(request, response, next) {
 //req.query.game_title
 //        var gametitle = request.query.game_title;
@@ -79,44 +65,46 @@ db.collection('TripInfo', function(err, collection){
      });
 });
 
-app.all('/database2', function(req, res, next) { 
+
+app.all('/highscores.json', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   next();
  });
-app.get('/database2', function(request, response, next) {
-//req.query.game_title
-//        var gametitle = request.query.game_title;
-db.collection('Validator', function(err, collection){
-//        TripInfo.insert(newentry);
-		if(!err){
-                  collection.find().toArray(function(err, Validator){
-		var Array2 = new Array();
-                var i = 0;
-                while (Validator[i]!= null){
-                        Array2[i]= Validator[i];
-                        i++;}
-                        response.send(Array2);
-				});
-			};
-     });
-});
+ 
+ app.get('/highscores.json', function(request, response, next) {
+	db.collection('highscores', function(err, collection) {
+		if(!err) {
+			var game = request.query.game_title;
+			collection.find({game_title:game}).toArray(function(err,highscores){
+			highscores.sort(function(a,b){
+				if(parseInt(a["score"]) == parseInt(b["score"])){
+					return 0;
+				}
+				if(parseInt(a["score"]) < parseInt(b["score"])){
+					return 1;
+				}
+				if(parseInt(a["score"]) > parseInt(b["score"])){
+					return -1;
+				}
+			});
+			var ten = [];
+			for(i=0;i<10;i++){
+				if(highscores[i] != null){
+					ten[i] = highscores[i];
+				}
+			}
+			response.send(ten);
+			});
 
-
-app.post('/submit2.json', function (request, response, next) {
-var trip = request.body.trip;
-var loca = request.body.loca;
-var username = request.body.username;
-var text_field = request.body.text_field;
-
-var newentry = [{"trip": trip, "username": username, "loca":loca, "text_field": text_field}];
-db.collection('TripInfo', function(er, TripInfo) {
-	if(!er){
-	TripInfo.insert(newentry);
-	}
+		};	
 	});
-response.send(newentry);
+	/*
+		db.collection('NAME_OF_YOUR_COLLECTON_HERE...', function(er, collection) {
+			collection.find()...
+	*/
 });
+ 
 
 app.all('/submit.json', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -138,6 +126,35 @@ app.post('/submit.json', function(request, response, next) {
 	response.send(post);
 });
 
+
+app.all('/index', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
+
+app.get('/index', function (request, response, next) {
+	db.collection('users', function(er, collection) {
+		if(!er){
+			collection.find().toArray(function(err,users){
+				response.send(users);
+			});
+		};
+	});
+});
+
+
+app.get('/usersearched', function (request, response, next) {
+	searched_username = request.query.username;
+	db.collection('highscores', function(er, collection) {
+		if(!er){
+			response.set('Content-Type','text/json');
+			collection.find({"username": searched_username}).toArray(function(err, highscores){
+				response.send(highscores);
+			});
+		}
+	});
+});
+
+
 app.listen(process.env.PORT || 5000);
-
-
