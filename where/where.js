@@ -199,7 +199,7 @@ var x1 = lat2-lat1;
 var dLat = x1.toRad();  
 var x2 = lon2-lon1;
 var dLon = x2.toRad();  
-var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) * Math.sin(dLon/2) * Math.sin(dLon/2);  
+var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1.* Math.PI / 180) * Math.cos(lat2* Math.PI / 180) * Math.sin(dLon/2) * Math.sin(dLon/2);  
 var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
 var d = R * c; 
 var closest;
@@ -216,11 +216,11 @@ var lat1 = Branch[j]['ib'];
 var lon1 = Branch[j]['jb']; 
 var R = 6371; // km 
 var x1 = lat2-lat1;
-var dLat = x1.toRad();  
+var dLat = x1* Math.PI / 180;  
 var x2 = lon2-lon1;
-var dLon = x2.toRad();  
+var dLon = x2* Math.PI / 180;  
 var a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
-                Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) * 
+                Math.cos(lat1* Math.PI / 180) * Math.cos(lat2* Math.PI / 180) * 
                 Math.sin(dLon/2) * Math.sin(dLon/2);  
 var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
 var q = R * c; 
