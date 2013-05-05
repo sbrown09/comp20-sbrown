@@ -17,13 +17,6 @@
 	var infoWindow;
 	var abbreviations = [];
 	var infowindow = new google.maps.InfoWindow();
-
-if (typeof Number.prototype.toRad == 'undefined') {
-  Number.prototype.toRad = function() {
-    return this * Math.PI / 180;
-  }
-}	
-	
 function initialize() {
 	map = new google.maps.Map(document.getElementById("map_canvas"),mapOptions);
 	pt = new google.maps.LatLng(42.395428, -71.142483);
@@ -163,7 +156,7 @@ function getme(){
 			myLat = position.coords.latitude;
 			myLong = position.coords.longitude;
 			renderMap();
-			//schedule();
+			schedule();
 		});
 				
     }
@@ -189,22 +182,24 @@ function renderMap(){
 //				});
 //				closestLine.setMap(map);
 //			}
+Number.prototype.toRad = function() {
+   return this * Math.PI / 180;
+}
 
 var lat2 = myLat; 
 var lon2 = myLong;
 var dist = 999999;
 for(i = 0; i<Stations.length; i++){
-console.log(lat2);
-var lat1 = Stations[i]['jb']; 
-var lon1 = Stations[i]['kb']; 
+var lat1 = Stations[i]['ib']; 
+var lon1 = Stations[i]['jb']; 
 
 var R = 6371; // km 
 //has a problem with the .toRad() method below.
 var x1 = lat2-lat1;
-var dLat = x1*Math.PI / 180;  
+var dLat = x1.toRad();  
 var x2 = lon2-lon1;
-var dLon = x2*Math.PI / 180; 
-var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1*Math.PI / 180) * Math.cos(lat2*Math.PI / 180) * Math.sin(dLon/2) * Math.sin(dLon/2);
+var dLon = x2.toRad();  
+var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) * Math.sin(dLon/2) * Math.sin(dLon/2);  
 var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
 var d = R * c; 
 var closest;
@@ -217,8 +212,8 @@ if(d < dist){
 }
 var distance = 100;
 for(j = 0; j< Branch.length; j++){
-var lat1 = Branch[j]['jb']; 
-var lon1 = Branch[j]['kb']; 
+var lat1 = Branch[j]['ib']; 
+var lon1 = Branch[j]['jb']; 
 var R = 6371; // km 
 var x1 = lat2-lat1;
 var dLat = x1.toRad();  
@@ -240,7 +235,7 @@ if(dist>distance){
 if(dist<distance){
 	closest = closest1;
 }
-			console.log('this is happening');
+
 			infoWindow = new google.maps.InfoWindow({
 				content: "Closest T Station is " + closest['name'] + " and it is " + dist + " miles away.",
 				position: me
@@ -297,7 +292,8 @@ function callback() {
         }
         
     }
-}*/
+//    findpeople();
+}
         
     
 
@@ -312,7 +308,7 @@ function prepare(icon, latitude, longitude, name, str){
         infowindow.setContent(name + "<p>" + "Line " + "Trip" +" "+ "Bound " + "Time" + "<p>"+ str);
         infowindow.open(map, this);
     });
-}
+}*/
 
 	
 function abbreviate(){
@@ -358,3 +354,63 @@ function abbreviate(){
     abbreviations[39] = {"abb": "RQUAS", "full_name": "Quincy Adams Square", "lat":42.233391, "lng":-71.008153};
     abbreviations[40] = {"abb": "RBRAS", "full_name": "Braintree Square", "lat":42.2078543, "lng":-71.0011385};
 }
+
+/*function findpeople() {
+	reqwal.open("GET", "http://messagehub.herokuapp.com/a3.json",true);
+	reqwal.send(null);
+	reqwal.onreadystatechange = waldo;
+}
+
+function waldo(){
+	if (reqwal.readyState == 4 && reqwal.status == 200){
+        ppl = JSON.parse(reqwal.responseText);
+        if(ppl.length != 0){
+	        for(i=0;i<ppl.length;i++){
+		        if(ppl[i]['name']=="Waldo"){
+		        	dWal = distfromme(ppl[i]['loc']['latitude'],ppl[i]['loc']['longitude']);
+			        persondisp('waldo.png', "Waldo ", dWal); 
+		        }
+		        if(ppl[i]['name']=="Carmen Sandiego"){
+		        	dCar = distfromme(ppl[i]['loc']['latitude'],ppl[i]['loc']['longitude']);
+			        persondisp('carmen.png', "Carmen Sandiego ", dCar);
+			    }
+	        }
+	    }
+}
+}
+
+function distfromme(lat, lon){
+	Number.prototype.toRad = function() {
+   return this * Math.PI / 180;
+}
+var lat2 = myLat; 
+var lon2 = myLong;
+var farness = 100;
+var t;
+ lat1 = lat; 
+ lon1 = lon;  
+ R = 6371; 
+ x1 = lat2-lat1;
+ dLat = x1.toRad();  
+ x2 = lon2-lon1;
+ dLon = x2.toRad();  
+ a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) * Math.sin(dLon/2) * Math.sin(dLon/2);  
+ c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+ t = R * c; 
+ return t;
+}
+
+
+function persondisp(icon, name, howfar){
+
+    dude = new google.maps.LatLng(lat1, lon1);
+    marker = new google.maps.Marker({
+        map: map,
+        position: dude,
+        icon: icon
+    });
+    google.maps.event.addListener(marker, 'click', function() {
+        infowindow.setContent(name + "is " + howfar + " miles away from you.");
+        infowindow.open(map, this);
+    });
+}*/
