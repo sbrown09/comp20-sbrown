@@ -238,7 +238,7 @@ if(dist>distance){
 if(dist<distance){
 	closest = closest1;
 }
-
+			console.log('this is happening');
 			infoWindow = new google.maps.InfoWindow({
 				content: "Closest T Station is " + closest['name'] + " and it is " + dist + " miles away.",
 				position: me
