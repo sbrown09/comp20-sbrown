@@ -215,7 +215,7 @@ if(d < dist){
 }
 var distance = 100;
 for(j = 0; j< Branch.length; j++){
-var lat1 = Branch[j]['ib']; 
+var lat1 = Branch[j]['kb']; 
 var lon1 = Branch[j]['jb']; 
 var R = 6371; // km 
 var x1 = lat2-lat1;
