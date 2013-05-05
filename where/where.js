@@ -378,11 +378,12 @@ function waldo(){
 	    }
 }
 }
-
+*/
 function distfromme(lat, lon){
 	Number.prototype.toRad = function() {
    return this * Math.PI / 180;
 }
+/*
 var lat2 = myLat; 
 var lon2 = myLong;
 var farness = 100;
