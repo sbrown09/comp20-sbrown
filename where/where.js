@@ -195,7 +195,13 @@ var R = 6371; // km
 var x1 = lat2-lat1;
 var dLat = x1.toRad();  
 var x2 = lon2-lon1;
-var dLon = x2.toRad();  
+var dLon = x2.toRad();
+if(lat1 == undefined){
+console.log(i + " lat1");
+}
+if(lat2 == undefined){
+console.log(i + " lat 2");
+}  
 var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) * Math.sin(dLon/2) * Math.sin(dLon/2);  
 var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
 var d = R * c; 
