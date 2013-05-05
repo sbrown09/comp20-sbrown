@@ -357,20 +357,3 @@ function abbreviate(){
     abbreviations[39] = {"abb": "RQUAS", "full_name": "Quincy Adams Square", "lat":42.233391, "lng":-71.008153};
     abbreviations[40] = {"abb": "RBRAS", "full_name": "Braintree Square", "lat":42.2078543, "lng":-71.0011385};
 }
-
-var lat2 = myLat; 
-var lon2 = myLong;
-var farness = 100;
-var t;
- lat1 = lat; 
- lon1 = lon;  
- R = 6371; 
- x1 = lat2-lat1;
- dLat = x1.toRad();  
- x2 = lon2-lon1;
- dLon = x2.toRad();  
- a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) * Math.sin(dLon/2) * Math.sin(dLon/2);  
- c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
- t = R * c; 
- return t;
-}
