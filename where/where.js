@@ -163,7 +163,7 @@ function getme(){
 			myLat = position.coords.latitude;
 			myLong = position.coords.longitude;
 			renderMap();
-			schedule();
+			//schedule();
 		});
 				
     }
@@ -261,7 +261,7 @@ if(dist<distance){
   //			});
 }
 
-function schedule() {
+/*function schedule() {
 	schedreq.open("GET", "http://mbtamap-cedar.herokuapp.com/mapper/redline.json ",true);
 	schedreq.send(null);
 	schedreq.onreadystatechange = callback;
@@ -297,8 +297,7 @@ function callback() {
         }
         
     }
-    findpeople();
-}
+}*/
         
     
 
