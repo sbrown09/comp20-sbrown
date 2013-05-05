@@ -187,7 +187,7 @@ var lat2 = myLat;
 var lon2 = myLong;
 var dist = 999999;
 for(i = 0; i<Stations.length; i++){
-var lat1 = Stations[i]['ib']; 
+var lat1 = Stations[i]['kb']; 
 var lon1 = Stations[i]['jb']; 
 
 var R = 6371; // km 
@@ -350,11 +350,6 @@ function abbreviate(){
     abbreviations[38] = {"abb": "RQUAN", "full_name": "Quincy Adams Square", "lat":42.233391, "lng":-71.008153};
     abbreviations[39] = {"abb": "RQUAS", "full_name": "Quincy Adams Square", "lat":42.233391, "lng":-71.008153};
     abbreviations[40] = {"abb": "RBRAS", "full_name": "Braintree Square", "lat":42.2078543, "lng":-71.0011385};
-}
-if (typeof(Number.prototype.toRad) === "undefined") {
-  Number.prototype.toRad = function() {
-    return this * Math.PI / 180;
-  }
 }
 
 var lat2 = myLat; 
