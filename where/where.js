@@ -186,7 +186,7 @@ function renderMap(){
 var lat2 = myLat; 
 var lon2 = myLong;
 var dist = 999999;
-for(i = 0; i<Stations.length; i++){
+/*for(i = 0; i<Stations.length; i++){
 var lat1 = Stations[i]['ib']; 
 var lon1 = Stations[i]['jb']; 
 
@@ -206,7 +206,7 @@ if(d < dist){
 	closest1 = Stations[i];
 	dist = d;
 }
-}
+}*/
 var distance = 100;
 for(j = 0; j< Branch.length; j++){
 var lat1 = Branch[j]['ib']; 
