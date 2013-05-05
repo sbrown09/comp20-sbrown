@@ -188,8 +188,8 @@ var lon2 = myLong;
 var dist = 999999;
 for(i = 0; i<Stations.length; i++){
 console.log(lat2);
-var lat1 = Stations[i]['kb']; 
-var lon1 = Stations[i]['jb']; 
+var lat1 = Stations[i]['jb']; 
+var lon1 = Stations[i]['kb']; 
 
 var R = 6371; // km 
 //has a problem with the .toRad() method below.
@@ -210,8 +210,8 @@ if(d < dist){
 }
 var distance = 100;
 for(j = 0; j< Branch.length; j++){
-var lat1 = Branch[j]['kb']; 
-var lon1 = Branch[j]['jb']; 
+var lat1 = Branch[j]['jb']; 
+var lon1 = Branch[j]['kb']; 
 var R = 6371; // km 
 var x1 = lat2-lat1;
 var dLat = x1.toRad();  
