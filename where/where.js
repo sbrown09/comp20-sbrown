@@ -187,6 +187,7 @@ var lat2 = myLat;
 var lon2 = myLong;
 var dist = 999999;
 for(i = 0; i<Stations.length; i++){
+console.log(lat2);
 var lat1 = Stations[i]['kb']; 
 var lon1 = Stations[i]['jb']; 
 
@@ -195,13 +196,7 @@ var R = 6371; // km
 var x1 = lat2-lat1;
 var dLat = x1.toRad();  
 var x2 = lon2-lon1;
-var dLon = x2.toRad();
-if(lat1 == undefined){
-console.log(i + " lat1");
-}
-if(lat2 == undefined){
-console.log(i + " lat 2");
-}  
+var dLon = x2.toRad(); 
 var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) * Math.sin(dLon/2) * Math.sin(dLon/2);  
 var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
 var d = R * c; 
